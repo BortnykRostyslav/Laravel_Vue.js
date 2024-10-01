@@ -1,42 +1,22 @@
 <script setup>
 
-import { reactive, computed } from 'vue';
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
 
 import SinglePostComponent from "@/components/SinglePostComponent.vue";
+import data from "bootstrap/js/src/dom/data.js";
 
-const persons = reactive([
-    {
-        id: 1,
-        name: 'Ivan',
-        age: 26
-    },
-    {
-        id: 2,
-        name: 'Olena',
-        age: 30
-    },
-    {
-        id: 3,
-        name: 'Mykola',
-        age: 28
-    },
-    {
-        id: 4,
-        name: 'Anna',
-        age: 22
-    }
-]);
+const persons = ref(null);
 
-function sayHello(){
-    console.log('Hello');
+function getPersons() {
+    axios.get('/persons')
+        .then(response  => {
+            persons.value = response.data;
+        })
 }
 
-function IvanJob(){
-    return persons.name + ' працює програмістом.'
-}
-
-const oldPersons = computed(() => {
-    return persons.filter(person => person.age > 25);
+onMounted(() => {
+    getPersons();
 });
 
 </script>
@@ -49,13 +29,15 @@ const oldPersons = computed(() => {
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Age</th>
+                <th scope="col">Job</th>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="person in oldPersons">
-                <th scope="row">{{ person.id}}</th>
-                <td>{{ person.name}}</td>
-                <td>{{ person.age}}</td>
+            <tr v-for="person in persons">
+                <th scope="row">{{ person.id }}</th>
+                <td>{{ person.name }}</td>
+                <td>{{ person.age }}</td>
+                <td>{{ person.job }}</td>
             </tr>
             </tbody>
         </table>
