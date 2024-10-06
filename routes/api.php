@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Person\StoreController;
 use App\Http\Controllers\Person\IndexController;
 use App\Http\Controllers\Person\UpdateController;
+use App\Http\Controllers\Person\DeleteController;
 
 
 /*
@@ -27,4 +28,5 @@ Route::group(['prefix' => 'people'], function () {
     Route::post('/', StoreController::class);
     Route::get('/', IndexController::class);
     Route::patch('/{person}', UpdateController::class);
+    Route::delete('/{person}', DeleteController::class);
 });
