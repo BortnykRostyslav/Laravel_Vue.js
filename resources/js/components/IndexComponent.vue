@@ -31,6 +31,17 @@ const updatePerson = (id) => {
         console.error('Error adding data:', error.response.data);
       });
 };
+
+const deletePerson = (id) => {
+  axios.delete(`api/people/${id}`)
+      .then(response => {
+        console.log('Person updated successfully:', response.data);
+        getPeople();
+      })
+      .catch(error => {
+        console.error('Error adding data:', error.response.data);
+      });
+};
 const changeEditPersonId = (id, Name, Age, Job) => {
   editPersonId.value = id;
   name.value = Name;
@@ -45,6 +56,7 @@ const isEdit = (id) => {
 onMounted(() => {
   getPeople();
   updatePerson();
+  deletePerson();
   changeEditPersonId();
   isEdit();
 });
@@ -61,6 +73,7 @@ onMounted(() => {
         <th scope="col">Age</th>
         <th scope="col">Job</th>
         <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
       </tr>
       </thead>
       <tbody>
@@ -71,6 +84,7 @@ onMounted(() => {
           <td>{{ person.age }}</td>
           <td>{{ person.job }}</td>
           <td><a href="#" @click.prevent="changeEditPersonId(person.id, person.name, person.age, person.job)" class="btn btn-success">Edit</a></td>
+          <td><a href="#" @click.prevent="deletePerson(person.id)" class="btn btn-danger">Delete</a></td>
         </tr>
         <tr :class="isEdit(person.id) ? '' : 'd-none'">
           <th scope="row">{{ person.id }}</th>
