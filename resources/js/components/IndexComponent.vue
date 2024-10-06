@@ -4,6 +4,7 @@ import {ref, onMounted} from 'vue';
 import axios from 'axios';
 
 const people = ref(null);
+const editPersonId = ref(null);
 
 const getPeople = () => {
   axios.get('api/people', {})
@@ -13,6 +14,14 @@ const getPeople = () => {
       .catch(error => {
         console.error('Error adding data:', error.response.data);
       });
+};
+
+const changeEditPersonId = (id) => {
+  editPersonId.value = id
+};
+
+const isEdit = (id) => {
+  return editPersonId.value === id
 };
 
 onMounted(() => {
@@ -40,14 +49,14 @@ onMounted(() => {
           <td>{{ person.name }}</td>
           <td>{{ person.age }}</td>
           <td>{{ person.job }}</td>
-          <td><a href="#" class="btn btn-success">Edit</a></td>
+          <td><a href="#" @click.prevent="changeEditPersonId(person.id)" class="btn btn-success">Edit</a></td>
         </tr>
-        <tr>
+        <tr :class="isEdit(person.id) ? '' : 'd-none'">
           <th scope="row">{{ person.id }}</th>
           <td><input type="text" class="form-control"></td>
           <td><input type="number" class="form-control"></td>
           <td><input type="text" class="form-control"></td>
-          <td><a href="#" class="btn btn-success">Update</a></td>
+          <td><a href="#" @click.prevent="changeEditPersonId(null)" class="btn btn-success">Update</a></td>
         </tr>
       </template>
       </tbody>
