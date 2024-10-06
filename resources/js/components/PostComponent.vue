@@ -4,6 +4,8 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 import CreateComponent from "@/components/CreateComponent.vue";
+import IndexComponent from "@/components/IndexComponent.vue";
+
 import data from "bootstrap/js/src/dom/data.js";
 
 const persons = ref(null);
@@ -24,6 +26,7 @@ const persons = ref(null);
 <template>
     <div>
         <CreateComponent></CreateComponent>
+        <IndexComponent></IndexComponent>
 <!--        <table class="table">-->
 <!--            <thead>-->
 <!--            <tr>-->

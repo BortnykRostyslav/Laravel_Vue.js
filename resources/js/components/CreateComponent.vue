@@ -1,6 +1,6 @@
 <script setup>
 
-import {ref} from 'vue';
+import { onMounted, ref } from 'vue';
 import axios from 'axios';
 
 import data from "bootstrap/js/src/dom/data.js";
@@ -18,16 +18,20 @@ const addData = () => {
         job: job.value
     })
         .then(response => {
-            name.value = null;
+            name.value = '';
             age.value = null;
-            job.value = null;
+            job.value = '';
 
             console.log('Data added successfully:', response.data);
         })
         .catch(error => {
-            console.error('Error adding data:', error);
+            console.error('Error adding data:', error.response.data);
         });
 };
+
+onMounted(() => {
+    addData();
+});
 
 </script>
 
