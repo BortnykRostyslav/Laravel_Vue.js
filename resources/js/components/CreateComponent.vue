@@ -6,9 +6,9 @@ import axios from 'axios';
 import data from "bootstrap/js/src/dom/data.js";
 
 
-const name = ref(null);
+const name = ref('');
 const age = ref(null);
-const job = ref(null);
+const job = ref('');
 
 const addData = () => {
     // @ts-ignore
