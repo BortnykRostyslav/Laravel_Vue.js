@@ -1,6 +1,6 @@
 <script setup>
 
-import { onMounted, ref } from 'vue';
+import { defineProps, onMounted, ref } from 'vue';
 import axios from 'axios';
 
 import data from "bootstrap/js/src/dom/data.js";
@@ -10,7 +10,7 @@ const name = ref('');
 const age = ref(null);
 const job = ref('');
 
-const addData = () => {
+function addData() {
     // @ts-ignore
     axios.post('api/people', {
         name: name.value,
@@ -27,7 +27,7 @@ const addData = () => {
         .catch(error => {
             console.error('Error adding data:', error.response.data);
         });
-};
+}
 
 onMounted(() => {
     addData();
@@ -36,6 +36,7 @@ onMounted(() => {
 </script>
 
 <template>
+    <button @click="callIndexLog">Викликати indexLog з IndexComponent</button>
     <div class="w-25">
         <div class="mb-3">
             <input type="text" class="form-control" id="name" v-model="name" placeholder="name">
